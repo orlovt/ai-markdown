@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Markdown Editor</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh; /* Full height */
+        }
+        .editor, .preview {
+            width: 50%;
+            padding: 20px;
+            overflow-y: scroll; /* Add scroll if content is too long */
+        }
+        .editor {
+            border-right: 1px solid #ddd; /* Add a divider between the editor and the preview */
+        }
+        .preview {
+            background-color: #f4f4f4;
+        }
+        textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none; /* Disable textarea resize */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="editor">
+            <textarea id="markdown-content" oninput="updatePreview()">{{ transcript }}</textarea>
+        </div>
+        <div class="preview" id="markdown-preview"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+    <script>
+        function updatePreview() {
+            var converter = new showdown.Converter();
+            var markdownText = document.getElementById("markdown-content").value;
+            var htmlText = converter.makeHtml(markdownText);
+            document.getElementById("markdown-preview").innerHTML = htmlText;
+        }
+        function callWriteFunction(prompt, transcript) {
+            fetch('/write/', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'prompt': prompt,
+                    'transcript': transcript
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                var textarea = document.getElementById('markdown-content');
+                var start = textarea.selectionStart;
+                var end = textarea.selectionEnd;
+                textarea.value = textarea.value.substring(0, start) + data.message + textarea.value.substring(end);
+                updatePreview();  // Update the preview after replacing the text
+            });
+        }
+        document.getElementById('markdown-content').addEventListener('keydown', function(event) {
+            // Check if the shortcut (e.g., Ctrl+Enter) is pressed
+            if (event.ctrlKey && event.key === 'Enter') {
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+                var selectedText = this.value.substring(start, end);
+                var userPrompt = prompt('Please enter your prompt');
+                if (userPrompt !== null) {  // If the user didn't cancel the prompt
+                    callWriteFunction(userPrompt, selectedText);
+                }
+            }
+        });
+        
+        // Call updatePreview on page load to render the initial transcript
+        window.onload = updatePreview;
+    </script>
+    <a href="/">Back</a>
+</body>
+</html>

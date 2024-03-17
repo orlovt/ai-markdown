@@ -1,0 +1,42 @@
+# AI-Based Markdown Editor
+
+This project is a Markdown editor that uses AI models and APIs to provide advanced features. It's built with HTML, CSS, and JavaScript.
+
+## Features
+
+- **Transcribe Video**: Uses a Speech-to-Text API to transcribe the audio from a video into text.
+- **Inline call to an LLM**: Used `OpenAI`'s `gpt-3.5-turbo` for any calls and inserts the output into the editor. 
+- **Save .md File**: Allows you to save your work as a Markdown file.
+- **Load .md File**: Allows you to load a Markdown file into the editor.
+- **Toggle Preview**: Allows you to toggle a live preview of your Markdown.
+- **Word Count**: Uses an AI model to count the words in your text.
+- **Export to PDF**: Allows you to export your work as a PDF.
+
+## Skills Demonstrated
+
+- Connecting to APIs
+- Using AI models, including Language Model (LLMs) and Speech-to-Text
+- Building a user interface with HTML, CSS, and JavaScript
+
+## Development Process and Technologies Used
+
+This project was developed using a combination of HTML, CSS, and JavaScript for the front-end user interface. The editor interface was designed to be simple and intuitive, with a sidebar for accessing the various features.
+
+The core functionality of the project relies on connecting to various APIs and using AI models. For instance, the "Transcribe Video" feature uses a Speech-to-Text Model `Whisper` by `OpenAI` to convert the audio from a video into text. This involves sending a request to the API with the video data and then processing the response to extract the transcribed text.
+
+This inline call to the LLM command is a key part of the AI functionality of the project. It demonstrates the ability to use AI models to perform complex tasks, and it shows how these models can be integrated into a web application to enhance its functionality.
+
+The project also includes features for saving and loading Markdown files, toggling a live Markdown preview, and exporting the text as a PDF. These features were implemented using standard web technologies and libraries.
+
+Throughout the development process, I focused on writing clean, efficient code and following best practices for web development. I also made sure to thoroughly test each feature to ensure it works as expected.
+
+This project served as a great opportunity to improve my skills in connecting to APIs, using AI models, and building user interfaces. I look forward to applying these skills to future projects.
+## How to Use
+
+
+
+
+## Future Improvements
+
+- Add more AI-based features
+- Improve the user interface

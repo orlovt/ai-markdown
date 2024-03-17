@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Markdown Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href='static/styles.css'>
+</head>
+<body>
+    <button id="toggle-sidebar"><i class="fas fa-bars"></i></button>
+    <div class="sidebar">
+        <button id="transcribe-video"><i class="fas fa-video"></i></button>
+        <button id="save-md"><i class="fas fa-save"></i></button>
+        <button id="load-md"><i class="fas fa-upload"></i> </button>
+        <button id="toggle-preview"><i class="fas fa-eye"></i> </button>
+        <!-- <button id="word-count"><i class="fas fa-number"></i></button> -->
+        <button id="export-pdf"><i class="fas fa-file-pdf"></i> </button>
+    </div>
+    <div class="container">
+        <div class="editor">
+            <textarea id="markdown-content" oninput="updatePreview()">{{ transcript }}</textarea>
+        </div>
+        <div class="preview" id="markdown-preview"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+    <script>
+        function updatePreview() {
+            var converter = new showdown.Converter();
+            var markdownText = document.getElementById("markdown-content").value;
+            var htmlText = converter.makeHtml(markdownText);
+            document.getElementById("markdown-preview").innerHTML = htmlText;
+        }
+        function callWriteFunction(prompt, transcript) {
+            fetch('/write/', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'prompt': prompt,
+                    'transcript': transcript
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                var textarea = document.getElementById('markdown-content');
+                var start = textarea.selectionStart;
+                var end = textarea.selectionEnd;
+                textarea.value = textarea.value.substring(0, start) + data.message + textarea.value.substring(end);
+                updatePreview();  // Update the preview after replacing the text
+            });
+        }
+        document.getElementById('markdown-content').addEventListener('keydown', function(event) {
+            // Check if the shortcut (e.g., Ctrl+Enter) is pressed
+            if (event.ctrlKey && event.key === 'Enter') {
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+                var selectedText = this.value.substring(start, end);
+                var userPrompt = prompt('Please enter your prompt');
+                if (userPrompt !== null) {  // If the user didn't cancel the prompt
+                    callWriteFunction(userPrompt, selectedText);
+                }
+            }
+        });
+        document.getElementById('toggle-sidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('hidden');
+        });
+        window.onload = updatePreview;
+    </script>
+    <a href="/">Back</a>
+</body>
+</html>
