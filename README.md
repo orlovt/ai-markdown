@@ -14,17 +14,28 @@ This project presents an AI-Based Markdown Editor, a web-based tool designed to 
 
 ## Getting Started
 
-1. Clone the repository to your local machine.
-   ```
-   mkdir ai-editor
 
+1. Clone the repository to your local machine:
+   ```bash
+   mkdir ai-editor
    git clone https://github.com/orlovt/ai-markdown.git
    ```
-2. Add your OpenAI API key to `vid_transcript/transcript_app/views.py`
-3. Start Django webserver: 
+2. Set up your virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Add your OpenAI API key to `vid_transcript/transcript_app/views.py`. You can find instructions on how to obtain this key from the OpenAI documentation.
+5. Start the Django webserver:
+   ```bash
+   python manage.py migrate  # Apply database migrations
    python manage.py runserver
    ```
+6. Navigate to `http://127.0.0.1:8000` in your web browser to view the application.
 
 ## Skills Demonstrated
 
