@@ -1,42 +1,48 @@
 # AI-Based Markdown Editor
 
-This project is a Markdown editor that uses AI models and APIs to provide advanced features. It's built with HTML, CSS, and JavaScript.
+## Introduction
+
+This project presents an AI-Based Markdown Editor, a web-based tool designed to enhance the writing and editing process through advanced AI features. Built with HTML, CSS, Django, Python and JavaScript, this editor integrates cutting-edge AI models and APIs to provide functionalities like speech-to-text transcription, real-time language processing, and more, aimed at increasing productivity while notetaking. 
 
 ## Features
 
-- **Transcribe Video**: Uses a Speech-to-Text API to transcribe the audio from a video into text.
-- **Inline call to an LLM**: Used `OpenAI`'s `gpt-3.5-turbo` for any calls and inserts the output into the editor. 
-- **Save .md File**: Allows you to save your work as a Markdown file.
-- **Load .md File**: Allows you to load a Markdown file into the editor.
-- **Toggle Preview**: Allows you to toggle a live preview of your Markdown.
-- **Word Count**: Uses an AI model to count the words in your text.
-- **Export to PDF**: Allows you to export your work as a PDF.
+- **Transcribe Video**: Leverages the OpenAI Whisper model for speech-to-text to transcribe audio from a video into markdown format.
+- **Inline LLM Calls**: Utilizes OpenAI's GPT-3.5-turbo for processing natural language queries and embedding responses directly into the editor.
+- **Save and Load Markdown Files**: Offers functionality to save your current work as a Markdown file and load existing Markdown files into the editor.
+- **Toggle Preview**: Enables a split-screen mode to preview your Markdown content in real-time.
+- **Export to PDF**: Converts your Markdown documents into PDF format for easy sharing and printing.
+
+## Getting Started
+
+1. Clone the repository to your local machine.
+   ```
+   mkdir ai-editor
+
+   git clone https://github.com/orlovt/ai-markdown.git
+   ```
+2. Add your OpenAI API key to `vid_transcript/transcript_app/views.py`
+3. Start Django webserver: 
+   ```
+   python manage.py runserver
+   ```
 
 ## Skills Demonstrated
 
-- Connecting to APIs
-- Using AI models, including Language Model (LLMs) and Speech-to-Text
-- Building a user interface with HTML, CSS, and JavaScript
-
-## Development Process and Technologies Used
-
-This project was developed using a combination of HTML, CSS, and JavaScript for the front-end user interface. The editor interface was designed to be simple and intuitive, with a sidebar for accessing the various features.
-
-The core functionality of the project relies on connecting to various APIs and using AI models. For instance, the "Transcribe Video" feature uses a Speech-to-Text Model `Whisper` by `OpenAI` to convert the audio from a video into text. This involves sending a request to the API with the video data and then processing the response to extract the transcribed text.
-
-This inline call to the LLM command is a key part of the AI functionality of the project. It demonstrates the ability to use AI models to perform complex tasks, and it shows how these models can be integrated into a web application to enhance its functionality.
-
-The project also includes features for saving and loading Markdown files, toggling a live Markdown preview, and exporting the text as a PDF. These features were implemented using standard web technologies and libraries.
-
-Throughout the development process, I focused on writing clean, efficient code and following best practices for web development. I also made sure to thoroughly test each feature to ensure it works as expected.
-
-This project served as a great opportunity to improve my skills in connecting to APIs, using AI models, and building user interfaces. I look forward to applying these skills to future projects.
-## How to Use
-
-
+- Connecting to and utilizing APIs and AI models, such as OpenAI's `Whisper` and `GPT-3.5-turbo`.
+- Front-end web development using `HTML, CSS`, and `JavaScript`.
+- Backend logic with `Python` and `Django`. 
+- Implementing a user-friendly interface and ensuring a seamless user experience.
 
 
 ## Future Improvements
 
-- Add more AI-based features
-- Improve the user interface
+- Introduce more AI-based features to further assist with content creation.
+- Enhance the user interface for a more engaging and intuitive experience.
+
+## How to Contribute
+
+Provide instructions for how others can contribute to your project. Include guidelines for submitting issues, pull requests, and any coding standards or practices they should follow.
+
+## License
+
+State the license under which your project is available. Open-source projects typically use licenses like MIT, GPL, or Apache 2.0. Provide a link or a full copy of the license text.
