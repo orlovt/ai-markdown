@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import pytube as pt
 import openai
+import os
+
 key = "sk-<your-key>"  
 
 def editor(request):
@@ -39,6 +41,8 @@ def transcribe(url, key):
         response_format="text",
         language="en"
     )
+    # Delete the audio file
+    os.remove("audio_english.mp3")
     return transcript
 
 def index(request):
